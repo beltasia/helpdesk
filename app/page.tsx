@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import TicketList from "@/components/ticket-list"
 import NewTicketDialog from "@/components/new-ticket-dialog"
+import db from "@/lib/db"
 
 export default async function Page() {
   // Server Component (default) renders the shell and streams the list below. [^1]
@@ -93,25 +94,24 @@ export default async function Page() {
 }
 
 // Small server components to fetch counts
-async function fetchCount(status: string) {
-  const res = await fetch(`/api/tickets?status=${encodeURIComponent(status)}`, { cache: "no-store" })
-  const data = await res.json()
-  return data.total as number
+async function countByStatus(status: string) {
+  const { total } = db.listTickets({ status: status as any })
+  return total
 }
 
 async function OpenCount() {
-  const n = await fetchCount("open")
+  const n = await countByStatus("open")
   return <p className="text-2xl font-bold">{n}</p>
 }
 async function InProgressCount() {
-  const n = await fetchCount("in_progress")
+  const n = await countByStatus("in_progress")
   return <p className="text-2xl font-bold">{n}</p>
 }
 async function WaitingCount() {
-  const n = await fetchCount("waiting")
+  const n = await countByStatus("waiting")
   return <p className="text-2xl font-bold">{n}</p>
 }
 async function ResolvedCount() {
-  const n = await fetchCount("resolved")
+  const n = await countByStatus("resolved")
   return <p className="text-2xl font-bold">{n}</p>
 }

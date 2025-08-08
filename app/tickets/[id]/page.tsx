@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation"
+import db from "@/lib/db"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import TicketStatusBadge from "@/components/ticket-status-badge"
 import TicketActions from "@/components/ticket-actions"
@@ -6,13 +7,11 @@ import CommentThread from "@/components/comment-thread"
 import { formatDateTime } from "@/lib/format"
 
 async function getTicket(id: string) {
-  const res = await fetch(`/api/tickets/${id}`, { cache: "no-store" })
-  if (!res.ok) return null
-  return res.json()
+  return db.getTicket(id)
 }
 
-export default async function TicketDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
+export default async function TicketDetailPage({ params }: { params: { id: string } }) {
+  const { id } = params
   const ticket = await getTicket(id)
   if (!ticket) return notFound()
 
