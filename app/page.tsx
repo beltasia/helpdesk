@@ -8,7 +8,6 @@ import NewTicketDialog from "@/components/new-ticket-dialog"
 import db from "@/lib/db"
 
 export default async function Page() {
-  // Server Component (default) renders the shell and streams the list below. [^1]
   return (
     <main className="max-w-6xl mx-auto p-4 md:p-8 space-y-6">
       <header className="flex items-center justify-between gap-4">
@@ -46,7 +45,6 @@ export default async function Page() {
           </CardHeader>
           <CardContent>
             <Suspense fallback={<div className="h-6 w-16 bg-muted rounded animate-pulse" />}>
-              {/* Lightweight counter via list API */}
               <OpenCount />
             </Suspense>
           </CardContent>
@@ -93,7 +91,7 @@ export default async function Page() {
   )
 }
 
-// Small server components to fetch counts
+// Server-only counters: read directly from db (no fetch).
 async function countByStatus(status: string) {
   const { total } = db.listTickets({ status: status as any })
   return total

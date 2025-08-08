@@ -23,6 +23,28 @@ export type Comment = {
   createdAt: string
 }
 
+// Browser-safe UUID generator (uses Web Crypto if available, falls back to Math.random)
+function uuid(): string {
+  const g = globalThis as any
+  if (g?.crypto?.randomUUID) return g.crypto.randomUUID()
+  if (g?.crypto?.getRandomValues) {
+    const buf = new Uint8Array(16)
+    g.crypto.getRandomValues(buf)
+    buf[6] = (buf[6] & 0x0f) | 0x40 // version 4
+    buf[8] = (buf[8] & 0x3f) | 0x80 // variant
+    const hex = Array.from(buf).map((b) => b.toString(16).padStart(2, "0"))
+    return `${hex.slice(0, 4).join("")}-${hex.slice(4, 6).join("")}-${hex.slice(6, 8).join("")}-${hex
+      .slice(8, 10)
+      .join("")}-${hex.slice(10, 16).join("")}`
+  }
+  // last resort
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0
+    const v = c === "x" ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+}
+
 class InMemoryDB {
   private tickets = new Map<string, Ticket>()
   private comments = new Map<string, Comment[]>()
@@ -34,7 +56,9 @@ class InMemoryDB {
 
   seed() {
     if (this.seeded) return
-    const sample: Array<Partial<Ticket> & Pick<Ticket, "subject" | "description" | "requesterName" | "requesterEmail" | "priority">> = [
+    const sample: Array<
+      Partial<Ticket> & Pick<Ticket, "subject" | "description" | "requesterName" | "requesterEmail" | "priority">
+    > = [
       {
         subject: "Cannot access premium features",
         description: "I upgraded to premium but features are still locked.",
@@ -65,25 +89,25 @@ class InMemoryDB {
       },
     ]
     sample.forEach((s, i) => {
-      const id = crypto.randomUUID()
+      const id = uuid()
       const createdAt = new Date(Date.now() - (i + 1) * 3600_000).toISOString()
       const t: Ticket = {
         id,
-        subject: s.subject,
-        description: s.description,
-        requesterName: s.requesterName,
-        requesterEmail: s.requesterEmail,
+        subject: s.subject!,
+        description: s.description!,
+        requesterName: s.requesterName!,
+        requesterEmail: s.requesterEmail!,
         createdAt,
         updatedAt: createdAt,
         status: i === 0 ? "open" : i === 1 ? "in_progress" : i === 2 ? "waiting" : "resolved",
-        priority: s.priority,
+        priority: s.priority!,
         tags: i === 1 ? ["bug"] : i === 2 ? ["export", "reporting"] : ["account"],
         assignedTo: i % 2 === 0 ? "Alex Johnson" : undefined,
       }
       this.tickets.set(id, t)
       this.comments.set(id, [
         {
-          id: crypto.randomUUID(),
+          id: uuid(),
           ticketId: id,
           author: "System",
           body: "Ticket created",
@@ -126,7 +150,7 @@ class InMemoryDB {
 
   createTicket(data: Omit<Ticket, "id" | "createdAt" | "updatedAt" | "status"> & { status?: Status }) {
     this.seed()
-    const id = crypto.randomUUID()
+    const id = uuid()
     const now = this.now()
     const t: Ticket = {
       id,
@@ -144,7 +168,7 @@ class InMemoryDB {
     this.tickets.set(id, t)
     this.comments.set(id, [
       {
-        id: crypto.randomUUID(),
+        id: uuid(),
         ticketId: id,
         author: "System",
         body: "Ticket created",
@@ -182,7 +206,7 @@ class InMemoryDB {
   addComment(ticketId: string, data: { author: string; body: string }) {
     this.seed()
     const c: Comment = {
-      id: crypto.randomUUID(),
+      id: uuid(),
       ticketId,
       author: data.author,
       body: data.body,

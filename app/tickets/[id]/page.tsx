@@ -6,13 +6,9 @@ import TicketActions from "@/components/ticket-actions"
 import CommentThread from "@/components/comment-thread"
 import { formatDateTime } from "@/lib/format"
 
-async function getTicket(id: string) {
-  return db.getTicket(id)
-}
-
 export default async function TicketDetailPage({ params }: { params: { id: string } }) {
   const { id } = params
-  const ticket = await getTicket(id)
+  const ticket = db.getTicket(id)
   if (!ticket) return notFound()
 
   return (
