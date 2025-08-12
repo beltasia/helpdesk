@@ -1,30 +1,48 @@
-# Node.js help desk
+# Node.js Help Desk
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+---
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/mellisas-projects-b938dd2d/v0-node-js-help-desk)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/O3yr17if8GV)
+##  Overview
 
-## Overview
+This repository stays in lock-step with your deployed chats on **v0.dev**—any updates you make there get pushed here, and then **Vercel** deploys the latest automatically.
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+---
 
-## Deployment
+##  Live Version
 
-Your project is live at:
+**Project is live at:** [Vercel – Node.js Help Desk](https://vercel.com/mellisas-projects-b938dd2d/v0-node-js-help-desk)  
+**Build & edit your app at:** [v0.dev – Node.js Help Desk Project](https://v0.dev/chat/projects/O3yr17if8GV)  
+:contentReference[oaicite:0]{index=0}
 
-**[https://vercel.com/mellisas-projects-b938dd2d/v0-node-js-help-desk](https://vercel.com/mellisas-projects-b938dd2d/v0-node-js-help-desk)**
+---
 
-## Build your app
+##  How It Works
 
-Continue building your app on:
+1. Build or tweak your app in **v0.dev**.  
+2. Deploy your chats from the v0 interface.  
+3. Changes auto-sync into this GitHub repo.  
+4. **Vercel** picks up the latest and updates your live site.  
+:contentReference[oaicite:1]{index=1}
 
-**[https://v0.dev/chat/projects/O3yr17if8GV](https://v0.dev/chat/projects/O3yr17if8GV)**
+---
 
-## How It Works
+##  Tech Stack & Structure
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+- **TypeScript**, **JavaScript**, and **CSS** power the codebase—mostly TypeScript (88%), with CSS (11.5%) and a dash of JavaScript (0.5%)  
+:contentReference[oaicite:2]{index=2}
+- Typical Next.js project layout:
+  - `app/`, `components/`, `lib/`, `styles/`, `public/`
+  - Config files like `next.config.mjs`, `postcss.config.mjs`, `tsconfig.json`
+  - `package.json` and `pnpm-lock.yaml` for dependency management
+
+---
+
+##  Getting Started
+
+Want to run it locally or contribute? Here’s your game plan:
+
+```bash
+git clone https://github.com/beltasia/helpdesk.git
+cd helpdesk
+pnpm install
+pnpm run dev
