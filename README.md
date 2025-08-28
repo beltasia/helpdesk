@@ -1,48 +1,121 @@
-# Node.js Help Desk
+Helpdesk System
 
----
+A ticket-based helpdesk system designed to streamline issue tracking, support requests, and IT service management for organizations. Built with a focus on efficiency, transparency, and ease of use, this project provides a web-based platform for managing support tickets from creation to resolution.
 
-##  Overview
+🚀 Features
 
-This repository stays in lock-step with your deployed chats on **v0.dev**—any updates you make there get pushed here, and then **Vercel** deploys the latest automatically.
+User Ticket Management
 
----
+Submit support requests with descriptions and attachments
 
-##  Live Version
+Track status (Open, In Progress, Resolved, Closed)
 
-**Project is live at:** [Vercel – Node.js Help Desk](https://vercel.com/mellisas-projects-b938dd2d/v0-node-js-help-desk)  
-**Build & edit your app at:** [v0.dev – Node.js Help Desk Project](https://v0.dev/chat/projects/O3yr17if8GV)  
-:contentReference[oaicite:0]{index=0}
+View ticket history and responses
 
----
+Admin Panel
 
-##  How It Works
+Manage tickets in real-time
 
-1. Build or tweak your app in **v0.dev**.  
-2. Deploy your chats from the v0 interface.  
-3. Changes auto-sync into this GitHub repo.  
-4. **Vercel** picks up the latest and updates your live site.  
-:contentReference[oaicite:1]{index=1}
+Assign tickets to support agents
 
----
+Add responses and resolve issues
 
-##  Tech Stack & Structure
+Notifications
 
-- **TypeScript**, **JavaScript**, and **CSS** power the codebase—mostly TypeScript (88%), with CSS (11.5%) and a dash of JavaScript (0.5%)  
-:contentReference[oaicite:2]{index=2}
-- Typical Next.js project layout:
-  - `app/`, `components/`, `lib/`, `styles/`, `public/`
-  - Config files like `next.config.mjs`, `postcss.config.mjs`, `tsconfig.json`
-  - `package.json` and `pnpm-lock.yaml` for dependency management
+Email or in-app updates for ticket progress (optional)
 
----
+Search & Filters
 
-##  Getting Started
+Quickly find tickets by status, priority, or keywords
 
-Want to run it locally or contribute? Here’s your game plan:
+Authentication
 
-```bash
+Role-based access (User, Support Agent, Admin)
+
+Secure login & session handling
+
+🛠️ Tech Stack
+
+Frontend: React / Next.js (customizable to your repo setup)
+
+Backend: Node.js / Express
+
+Database: MongoDB / PostgreSQL (depending on config)
+
+Authentication: JWT / Firebase Auth
+
+Hosting: Vercel / Heroku / Railway
+
+📂 Project Structure
+helpdesk/
+│── client/           # Frontend code  
+│── server/           # Backend code  
+│── models/           # Database schemas  
+│── routes/           # API endpoints  
+│── utils/            # Helper functions  
+│── docs/             # Documentation  
+└── README.md
+
+⚙️ Installation & Setup
+
+Clone the repository
+
 git clone https://github.com/beltasia/helpdesk.git
 cd helpdesk
-pnpm install
-pnpm run dev
+
+
+Install dependencies
+
+npm install    # or yarn install
+
+
+Environment variables
+Create a .env file and configure:
+
+PORT=5000
+DB_URI=mongodb+srv://...
+JWT_SECRET=your_secret_key
+EMAIL_SERVICE_API_KEY=your_email_api_key
+
+
+Run the app
+
+npm run dev
+
+📌 Usage
+
+Users log in to submit support tickets.
+
+Admins/agents log in to view, manage, and resolve tickets.
+
+Tickets are updated in real-time and can be closed once resolved.
+
+🚧 Roadmap
+
+ File attachments in tickets
+
+ SLA tracking & reporting
+
+ Multi-language support
+
+ Analytics dashboard for admins
+
+ Integration with Slack / Teams
+
+🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+Fork the repo
+
+Create your feature branch (git checkout -b feature/amazing-feature)
+
+Commit changes (git commit -m 'Add amazing feature')
+
+Push to branch (git push origin feature/amazing-feature)
+
+Open a Pull Request
+
+📜 License
+
+This project is licensed under the MIT License – free to use, modify, and distribute.
